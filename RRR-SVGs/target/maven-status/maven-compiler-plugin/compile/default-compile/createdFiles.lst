@@ -5,10 +5,10 @@ com/rrrsvg/model/SVGDocument.class
 com/rrrsvg/model/SVGCircle.class
 com/rrrsvg/model/SVGRoot.class
 com/rrrsvg/model/SVGLine.class
-com/rrrsvg/model/SVGPolyline.class
 com/rrrsvg/App.class
-com/rrrsvg/model/SVGElement.class
+com/rrrsvg/model/SVGPolyline.class
 com/rrrsvg/exception/SVGParseException.class
+com/rrrsvg/model/SVGElement.class
 com/rrrsvg/model/SVGPolygon.class
 com/rrrsvg/SVGReader.class
 com/rrrsvg/model/SVGEllipse.class
