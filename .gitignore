@@ -1,0 +1,12 @@
+# Build output
+target/
+*.class
+
+# OS / IDE files
+.DS_Store
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/

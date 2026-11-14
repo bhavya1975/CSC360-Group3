@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="480" height="320" fill="#bde0fe"/>
+  <circle cx="400" cy="70" r="36" fill="#ffd60a" stroke="#ffc300" stroke-width="6"/>
+
+  <g fill="white" opacity="0.9">
+    <ellipse cx="90" cy="60" rx="40" ry="16"/>
+    <ellipse cx="120" cy="50" rx="30" ry="18"/>
+  </g>
+
+  <path d="M0 240 Q120 200 240 240 Q360 280 480 240 V320 H0 Z" fill="#80b918"/>
+
+  <g transform="translate(120 150)" stroke="#6d4c41" stroke-width="3">
+    <rect width="140" height="100" fill="#f4a261"/>
+    <polygon points="-15,0 70,-60 155,0" fill="#9d0208"/>
+    <rect x="55" y="45" width="30" height="55" fill="#6d4c41"/>
+    <rect x="15" y="25" width="28" height="28" fill="#caf0f8"/>
+    <rect x="97" y="25" width="28" height="28" fill="#caf0f8"/>
+  </g>
+
+  <g transform="translate(360 160)">
+    <rect x="-8" y="30" width="16" height="60" fill="#7f5539"/>
+    <circle cy="10" r="38" fill="#2d6a4f"/>
+  </g>
+
+  <path d="M190 250 C190 275 150 285 140 320 L200 320 C205 290 210 270 200 250 Z" fill="#ddb892"/>
+</svg>
