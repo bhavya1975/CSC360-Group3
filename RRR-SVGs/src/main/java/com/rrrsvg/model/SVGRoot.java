@@ -16,29 +16,51 @@ public class SVGRoot extends SVGElement {
     }
 
     /**
-     * Returns the canvas width, falling back to viewBox width if width attribute is missing.
+     * Returns the canvas width, falling back to viewBox width if width attribute is missing,
+     * specified as a percentage (e.g. 100%), or non-positive.
      *
      * @return Width as double, or 0.0 if not specified.
      */
     public double getWidth() {
-        if (hasAttribute("width")) {
-            return getDoubleAttribute("width", 0.0);
+        String raw = getWidthString();
+        if (raw == null || raw.trim().endsWith("%")) {
+            double[] vb = getViewBoxBounds();
+            if (vb != null && vb[2] > 0.0) {
+                return vb[2];
+            }
         }
-        double[] vb = getViewBoxBounds();
-        return vb != null ? vb[2] : 0.0;
+        double w = getDoubleAttribute("width", 0.0);
+        if (w <= 0.0) {
+            double[] vb = getViewBoxBounds();
+            if (vb != null && vb[2] > 0.0) {
+                return vb[2];
+            }
+        }
+        return w;
     }
 
     /**
-     * Returns the canvas height, falling back to viewBox height if height attribute is missing.
+     * Returns the canvas height, falling back to viewBox height if height attribute is missing,
+     * specified as a percentage (e.g. 100%), or non-positive.
      *
      * @return Height as double, or 0.0 if not specified.
      */
     public double getHeight() {
-        if (hasAttribute("height")) {
-            return getDoubleAttribute("height", 0.0);
+        String raw = getHeightString();
+        if (raw == null || raw.trim().endsWith("%")) {
+            double[] vb = getViewBoxBounds();
+            if (vb != null && vb[3] > 0.0) {
+                return vb[3];
+            }
         }
-        double[] vb = getViewBoxBounds();
-        return vb != null ? vb[3] : 0.0;
+        double h = getDoubleAttribute("height", 0.0);
+        if (h <= 0.0) {
+            double[] vb = getViewBoxBounds();
+            if (vb != null && vb[3] > 0.0) {
+                return vb[3];
+            }
+        }
+        return h;
     }
 
     /**
