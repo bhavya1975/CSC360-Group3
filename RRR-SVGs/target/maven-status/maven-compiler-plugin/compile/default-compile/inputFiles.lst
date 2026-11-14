@@ -1,2 +1,17 @@
 /Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/App.java
 /Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/SVGReader.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/exception/SVGParseException.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGCircle.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGDocument.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGElement.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGElementFactory.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGEllipse.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGGenericElement.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGGroup.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGLine.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGPath.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGPolygon.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGPolyline.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGRect.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/model/SVGRoot.java
+/Users/bhavyamsurati/Documents/code/projects/other/CSC360-Group3./RRR-SVGs/src/main/java/com/rrrsvg/parser/SVGParser.java
