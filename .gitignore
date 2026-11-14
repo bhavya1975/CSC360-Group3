@@ -1,6 +1,8 @@
 # Build output
 target/
 *.class
+generated-png/
+**/generated-png/
 
 # OS / IDE files
 .DS_Store
