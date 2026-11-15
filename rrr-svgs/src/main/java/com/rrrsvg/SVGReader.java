@@ -116,8 +116,10 @@ public class SVGReader {
         System.out.println("--> Reading SVG file: " + targetPath + "\n");
         try {
             File targetFile = new File(targetPath);
-            // Fallback for execution from root directory CSC360-Group3. vs RRR-SVGs subdirectory
-            if (!targetFile.exists() && new File("RRR-SVGs/" + targetPath).exists()) {
+            // Fallback for execution from root directory CSC360-Group3. vs rrr-svgs subdirectory
+            if (!targetFile.exists() && new File("rrr-svgs/" + targetPath).exists()) {
+                targetFile = new File("rrr-svgs/" + targetPath);
+            } else if (!targetFile.exists() && new File("RRR-SVGs/" + targetPath).exists()) {
                 targetFile = new File("RRR-SVGs/" + targetPath);
             }
 

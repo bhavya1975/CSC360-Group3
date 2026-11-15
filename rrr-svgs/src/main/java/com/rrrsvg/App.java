@@ -55,6 +55,9 @@ public class App {
         } else {
             File sample = new File("src/main/resources/sample.svg");
             if (!sample.exists()) {
+                sample = new File("rrr-svgs/src/main/resources/sample.svg");
+            }
+            if (!sample.exists()) {
                 sample = new File("RRR-SVGs/src/main/resources/sample.svg");
             }
             initialFile = sample.exists() ? sample : null;

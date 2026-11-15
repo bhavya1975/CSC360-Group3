@@ -2,15 +2,15 @@
 
 | Folder | What it is |
 |---|---|
-| `RRR-SVGs/` | Bhavya's original prototype (`SVGReader` prints the elements of an SVG). |
-| `RRR-SVGs-App/` | The full app: type SVG code (or open an `.svg` file), click **Render** to see the image drawn by our own renderer, and click **Save PNG** to export it. |
+| `rrr-svgs/` | Bhavya's prototype (`SVGReader` prints the elements of an SVG, ImageJ & Batik integration). |
+| `rrr-svgs-app/` | The full app: type SVG code (or open an `.svg` file), click **Render** to see the image drawn by our own renderer, and click **Save PNG** to export it. |
 
 ## Run the app
 
 Requires JDK 21+ and Maven.
 
 ```bash
-cd RRR-SVGs-App
+cd rrr-svgs-app
 mvn javafx:run    # start the app (edit the code and click Render, or open a file from samples/)
 mvn test          # run the tests
 ```

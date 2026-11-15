@@ -34,10 +34,16 @@ public class RasterizationConsistencyTest {
 
         sampleFile = new File("src/main/resources/sample.svg");
         if (!sampleFile.exists()) {
+            sampleFile = new File("rrr-svgs/src/main/resources/sample.svg");
+        }
+        if (!sampleFile.exists()) {
             sampleFile = new File("RRR-SVGs/src/main/resources/sample.svg");
         }
 
         transformsFile = new File("src/main/resources/transforms_colors.svg");
+        if (!transformsFile.exists()) {
+            transformsFile = new File("rrr-svgs/src/main/resources/transforms_colors.svg");
+        }
         if (!transformsFile.exists()) {
             transformsFile = new File("RRR-SVGs/src/main/resources/transforms_colors.svg");
         }

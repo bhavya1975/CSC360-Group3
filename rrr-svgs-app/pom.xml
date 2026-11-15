@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rrrsvg</groupId>
-    <artifactId>RRR-SVGs</artifactId>
+    <artifactId>rrr-svgs-app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>RRR-SVGs: Reading, Rendering and Rasterization</name>
 

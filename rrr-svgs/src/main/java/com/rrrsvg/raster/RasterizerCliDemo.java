@@ -29,7 +29,9 @@ public class RasterizerCliDemo {
                 : "src/main/resources/sample.svg";
 
         File svgFile = new File(svgPath);
-        if (!svgFile.exists() && new File("RRR-SVGs/" + svgPath).exists()) {
+        if (!svgFile.exists() && new File("rrr-svgs/" + svgPath).exists()) {
+            svgFile = new File("rrr-svgs/" + svgPath);
+        } else if (!svgFile.exists() && new File("RRR-SVGs/" + svgPath).exists()) {
             svgFile = new File("RRR-SVGs/" + svgPath);
         }
 

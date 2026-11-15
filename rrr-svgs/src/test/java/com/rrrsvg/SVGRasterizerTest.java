@@ -34,6 +34,9 @@ public class SVGRasterizerTest {
 
         sampleFile = new File("src/main/resources/sample.svg");
         if (!sampleFile.exists()) {
+            sampleFile = new File("rrr-svgs/src/main/resources/sample.svg");
+        }
+        if (!sampleFile.exists()) {
             sampleFile = new File("RRR-SVGs/src/main/resources/sample.svg");
         }
 
