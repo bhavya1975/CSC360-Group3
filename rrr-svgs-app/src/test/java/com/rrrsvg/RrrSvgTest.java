@@ -48,6 +48,18 @@ public class RrrSvgTest {
     }
 
     @Test
+    public void generateHousePreview() throws Exception {
+        java.io.File houseFile = new java.io.File("samples/house.svg");
+        if (houseFile.exists()) {
+            SvgNode root = new SvgReader().read(houseFile);
+            Drawing drawing = new SvgInterpreter().interpret(root);
+            BufferedImage img = new Rasterizer().rasterize(new Renderer().render(drawing), drawing.width(), drawing.height());
+            new java.io.File("../docs").mkdirs();
+            Rasterizer.savePng(img, new java.io.File("../docs/output_preview.png"));
+        }
+    }
+
+    @Test
     public void parsesColours() {
         assertEquals(Color.RED, ColorParser.parse("red"));
         assertEquals(new Color(0x112233), ColorParser.parse("#123"));
