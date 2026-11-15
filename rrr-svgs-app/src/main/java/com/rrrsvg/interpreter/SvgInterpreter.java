@@ -10,13 +10,15 @@ import java.util.Map;
 
 /**
  * Stage 2 — Interpreting.
- * Walks the SVG tree and converts each element into a {@link Shape}: geometry in pixel
- * coordinates (after all transforms) plus fill colour, border colour/width and opacity.
+ * Walks the SVG tree and converts each element into a {@link Shape}: geometry
+ * in pixel
+ * coordinates (after all transforms) plus fill colour, border colour/width and
+ * opacity.
  */
 public class SvgInterpreter {
 
-    private static final List<String> STYLE_PROPERTIES =
-            List.of("fill", "stroke", "stroke-width", "opacity", "fill-opacity", "stroke-opacity");
+    private static final List<String> STYLE_PROPERTIES = List.of("fill", "stroke", "stroke-width", "opacity",
+            "fill-opacity", "stroke-opacity");
     private static final int CIRCLE_POINTS = 72;
 
     public Drawing interpret(SvgNode svg) {
@@ -36,15 +38,17 @@ public class SvgInterpreter {
             transform = new Transform(sx, 0, 0, sy, -viewBox[0] * sx, -viewBox[1] * sy);
         }
 
-        Map<String, String> defaultStyle = new HashMap<>(Map.of("fill", "black", "stroke", "none", "stroke-width", "1"));
+        Map<String, String> defaultStyle = new HashMap<>(
+                Map.of("fill", "black", "stroke", "none", "stroke-width", "1"));
         List<Shape> shapes = new ArrayList<>();
         visit(svg, transform, defaultStyle, 1.0, shapes);
         return new Drawing((int) Math.ceil(width), (int) Math.ceil(height), shapes);
     }
 
     private void visit(SvgNode node, Transform parentTransform, Map<String, String> parentStyle,
-                       double parentOpacity, List<Shape> shapes) {
-        // Styles are inherited from the parent and can be overridden by attributes or style="..."
+            double parentOpacity, List<Shape> shapes) {
+        // Styles are inherited from the parent and can be overridden by attributes or
+        // style="..."
         Map<String, String> style = new HashMap<>(parentStyle);
         for (String property : STYLE_PROPERTIES) {
             if (node.attr(property) != null) {
@@ -80,7 +84,8 @@ public class SvgInterpreter {
                 }
             }
             default -> {
-                // other elements (text, images, gradients, ...) are not supported and are skipped
+                // other elements (text, images, gradients, ...) are not supported and are
+                // skipped
             }
         }
     }
