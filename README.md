@@ -45,37 +45,24 @@ The pipeline transforms human-readable SVG text into discrete pixels through 4 d
 
 ## 📁 Repository Structure
 
-To satisfy both interactive application requirements and scientific image verification, the repository is organized into two specialized Maven modules:
+The repository contains a clean, unified Maven project implementing all four stages from scratch alongside ImageJ analysis:
 
 ```text
 CSC360-Group3/
 ├── README.md                          # Project documentation and team matrix
-│
-├── rrr-svgs-app/                      # Module A: Interactive JavaFX Studio (Pure Custom Engine)
-│   ├── pom.xml                        # JavaFX & JUnit dependencies
-│   ├── samples/                       # Suite of test SVG files (house, shapes, invalid, etc.)
-│   └── src/
-│       ├── main/java/com/rrrsvg/
-│       │   ├── App.java               # JavaFX Desktop Application GUI & Live Code Editor
-│       │   ├── reader/                # [Member 1 - Prasham] SvgReader, SvgNode, SvgParseException
-│       │   ├── interpreter/           # [Member 2 - Bhavya] SvgInterpreter, Transform, ColorParser
-│       │   ├── renderer/              # [Member 3 - Pranel] Renderer, DrawOp, Shape tessellation
-│       │   └── rasterizer/            # [Member 4 - Shubham] Rasterizer (Scanline fill, AA, PNG export)
-│       └── test/java/com/rrrsvg/
-│           └── RrrSvgTest.java        # Automated tests verifying the full pipeline
-│
-└── rrr-svgs/                          # Module B: ImageJ Verification & Analytics Suite
-    ├── pom.xml                        # ImageJ (ij.jar), Batik, & JUnit dependencies
+├── docs/                              # Documentation assets and output previews
+└── rrr-svgs-app/                      # Core Unified Engine & Interactive Studio
+    ├── pom.xml                        # Maven configuration (JavaFX 21, ImageJ 1.54p, JUnit)
+    ├── samples/                       # Suite of test SVG files (house, shapes, invalid, etc.)
     └── src/
         ├── main/java/com/rrrsvg/
-        │   ├── App.java               # Swing Desktop Viewer Launcher
-        │   ├── SVGReader.java         # Module 1 Standalone CLI Tree Inspector
-        │   ├── parser/                # DOM Parser & Validation Engine
-        │   ├── model/                 # Typed SVG Elements (SVGCircle, SVGRect, SVGPath, etc.)
-        │   ├── analysis/              # ImageJ PixelAnalyzer, Histograms & Channel Statistics
-        │   ├── raster/                # Rasterizer & CLI Verification Demo
-        │   └── ui/                    # Swing GUI: PixelInspector, HistogramView, ComparisonPanel
-        └── test/java/com/rrrsvg/      # Automated tests verifying pixel consistency & ImageJ models
+        │   ├── App.java               # JavaFX Studio with Live Editor & ImageJ Analysis
+        │   ├── reader/                # [Member 1 - Prasham] SvgReader, SvgNode, SvgParseException
+        │   ├── interpreter/           # [Member 2 - Bhavya] SvgInterpreter, Transform, ColorParser
+        │   ├── renderer/              # [Member 3 - Pranel] Renderer, DrawOp, Shape tessellation
+        │   └── rasterizer/            # [Member 4 - Shubham] Rasterizer (Scanline fill, AA, PNG export)
+        └── test/java/com/rrrsvg/
+            └── RrrSvgTest.java        # Automated JUnit tests verifying the pipeline
 ```
 
 ---
@@ -115,52 +102,32 @@ CSC360-Group3/
 
 ---
 
-### Method 1: Interactive JavaFX Studio (`rrr-svgs-app`)
-The primary desktop application featuring live SVG editing, instant custom rendering, and PNG export.
+### Running the Application
 
 ```bash
-# 1. Navigate to the application module
+# 1. Navigate to the project directory
 cd rrr-svgs-app
 
 # 2. Launch the JavaFX application
 mvn javafx:run
 ```
 
-**Using the App:**
-1. Click **Open** to load any sample from the `samples/` folder (e.g. `house.svg`).
-2. Edit or type new SVG XML code in the left-hand text editor.
-3. Click **Render** to execute your custom 4-stage pipeline and view the result.
-4. Click **Save PNG** to export the rendered canvas to a high-resolution PNG file.
-
----
-
-### Method 2: ImageJ Analytics & Verification Suite (`rrr-svgs`)
-The scientific suite featuring ImageJ pixel inspection, RGB histograms, and channel statistics.
-
-```bash
-# 1. Navigate to the analytics module
-cd rrr-svgs
-
-# 2. Launch the ImageJ Swing Desktop Viewer
-mvn compile exec:java -Dexec.mainClass="com.rrrsvg.App"
-
-# 3. Or run standalone CLI demos:
-mvn compile exec:java -Dexec.mainClass="com.rrrsvg.SVGReader"                  # Module 1 Reader Tree Demo
-mvn compile exec:java -Dexec.mainClass="com.rrrsvg.raster.RasterizerCliDemo"   # Module 3 Raster & Pixel Stats
-```
+**Using the Desktop Studio:**
+1. **Open SVG:** Click **Open SVG** to load any sample from the `samples/` directory (e.g. `house.svg`).
+2. **Interactive Code Editor:** Edit or write SVG XML markup in the left-hand text pane in real time.
+3. **Render:** Click **Render** to execute your custom 4-stage pipeline and display the rendered graphics on the canvas.
+4. **Save PNG:** Click **Save PNG** to export the rendered canvas to a high-resolution PNG file.
+5. **Open in ImageJ:** Click **Open in ImageJ** to launch ImageJ's native analysis window for pixel inspection, zoom, and histogram measurement.
 
 ---
 
 ## 🧪 Automated Testing Suite
 
-The repository contains **42 automated JUnit tests** verifying parsing resilience, geometric transforms, scanline fill, and raster accuracy.
+The project includes an automated JUnit test suite verifying parsing resilience, geometric transforms, scanline fill, and raster accuracy.
 
 ```bash
-# Run tests for rrr-svgs-app
-cd rrr-svgs-app && mvn test
-
-# Run tests for rrr-svgs
-cd ../rrr-svgs && mvn test
+cd rrr-svgs-app
+mvn test
 ```
 
 ### Test Suite Coverage
@@ -169,7 +136,7 @@ cd ../rrr-svgs && mvn test
 * `testReaderRejectsNonSvgRoot`: Verifies rejection of non-SVG documents.
 * `testInterpreterTransforms`: Validates scale, rotate, and translation matrix concatenation.
 * `testScanlineRasterizer`: Validates pixel fill correctness and color assignments.
-* `testImageJConsistency`: Asserts image dimensions, luminance, and histogram data integrity.
+* `generateHousePreview`: Renders and asserts image dimension and color integrity.
 
 ---
 

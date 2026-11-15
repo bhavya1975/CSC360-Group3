@@ -27,6 +27,13 @@
             <version>${javafx.version}</version>
         </dependency>
 
+        <!-- ImageJ: Scientific image processing and pixel analysis -->
+        <dependency>
+            <groupId>net.imagej</groupId>
+            <artifactId>ij</artifactId>
+            <version>1.54p</version>
+        </dependency>
+
         <!-- JUnit: Unit testing -->
         <dependency>
             <groupId>junit</groupId>

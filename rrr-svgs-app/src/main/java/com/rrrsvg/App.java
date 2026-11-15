@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
+import ij.ImagePlus;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -63,13 +65,15 @@ public class App extends Application {
         open.setOnAction(e -> openSvg());
         Button save = new Button("Save PNG");
         save.setOnAction(e -> savePng());
+        Button imagej = new Button("Open in ImageJ");
+        imagej.setOnAction(e -> openImageJ());
 
         codeArea.setStyle("-fx-font-family: monospace;");
         SplitPane split = new SplitPane(codeArea, new ScrollPane(imageView));
         split.setDividerPositions(0.45);
 
         BorderPane root = new BorderPane();
-        root.setTop(new ToolBar(render, open, save, status));
+        root.setTop(new ToolBar(render, open, save, imagej, status));
         root.setCenter(split);
 
         stage.setTitle("RRR-SVGs");
@@ -129,6 +133,21 @@ public class App extends Application {
             status.setText("Saved " + file.getName());
         } catch (IOException ex) {
             new Alert(Alert.AlertType.ERROR, "Could not save: " + ex.getMessage()).showAndWait();
+        }
+    }
+
+    /** Opens the current rasterized output in an ImageJ window for pixel analysis. */
+    private void openImageJ() {
+        if (image == null) {
+            new Alert(Alert.AlertType.INFORMATION, "Please click Render first before opening in ImageJ.").showAndWait();
+            return;
+        }
+        try {
+            ImagePlus imp = new ImagePlus("RRR-SVGs - ImageJ Analysis", image);
+            imp.show();
+            status.setText("Opened in ImageJ (" + image.getWidth() + "×" + image.getHeight() + " px)");
+        } catch (Exception ex) {
+            new Alert(Alert.AlertType.ERROR, "ImageJ could not be opened: " + ex.getMessage()).showAndWait();
         }
     }
 
