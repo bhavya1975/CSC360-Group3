@@ -57,48 +57,55 @@ CSC360-Group3/
     └── src/
         ├── main/java/com/rrrsvg/
         │   ├── App.java               # JavaFX Studio with Live Editor & ImageJ Analysis
-        │   ├── reader/                # [Member 1 - Prasham] SvgReader, SvgNode, SvgParseException
-        │   ├── interpreter/           # [Member 2 - Bhavya] SvgInterpreter, Transform, ColorParser
-        │   ├── renderer/              # [Member 3 - Pranel] Renderer, DrawOp, Shape tessellation
-        │   └── rasterizer/            # [Member 4 - Shubham] Rasterizer (Scanline fill, AA, PNG export)
+        │   ├── reader/
+        SvgReader, SvgNode, SvgParseException
+        │   ├── interpreter/
+        SvgInterpreter, Transform, ColorParser
+        │   ├── renderer/
+        Renderer, DrawOp, Shape tessellation
+        │   └── rasterizer/
+        Rasterizer (Scanline fill, AA, PNG export)
         └── test/java/com/rrrsvg/
             └── RrrSvgTest.java        # Automated JUnit tests verifying the pipeline
 ```
 
 ---
 
-## ⚙️ Features & Mathematical Algorithms
+## ⚙️ Features
 
-### 1. Reading & Error Trapping
-* **Namespace-Aware DOM Builder:** Disables external DTD resolution to prevent network delays and security vulnerabilities.
-* **Dual-Layer Validation:**
-  * *Syntactic:* Traps unclosed tags, illegal characters, and syntax bugs via `SAXParseException` with line-number diagnostics.
-  * *Semantic:* Enforces root `<svg>` element check, immediately rejecting HTML or foreign XML documents.
+### 1. SVG Reading and Validation
 
-### 2. Geometry & Coordinate Processing
-* **Homogeneous 2D Transformation Matrices:**
-  $$\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \begin{bmatrix} a & c & e \\ b & d & f \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
-  Supports `translate(tx, ty)`, `scale(sx, sy)`, `rotate(deg, cx, cy)`, and raw `matrix(a,b,c,d,e,f)`.
-* **viewBox Mapping:** Automatically scales and centers content using uniform scaling (`meet` aspect ratio).
+- **Reading SVG Files:** Uses Java DOM Parser to read SVG files and extract their elements and attributes.
+- **Error Handling:**
+  - _Syntax Checking:_ Detects missing tags, invalid characters, and XML errors, including line numbers.
+  - _File Validation:_ Checks whether the root element is `<svg>` and rejects invalid files.
 
-### 3. Rendering & Curve Flattening
-* **Bézier Curve Flattening:** Implements parametric evaluation for cubic and quadratic Bézier curves (`C`, `S`, `Q`, `T` path commands):
-  $$B(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_1 + 3(1-t) t^2 P_2 + t^3 P_3, \quad t \in [0, 1]$$
-* **Stroke Expansion:** Converts stroked lines and boundary paths into closed polygon loops for the rasterizer.
+### 2. Shapes and Coordinate Processing
 
-### 4. Rasterization & Antialiasing
-* **Scanline Polygon Fill:** Uses horizontal scanline traversal with edge intersection sorting and the **Even-Odd parity rule** to determine inside/outside state.
-* **Sub-Pixel Antialiasing:** Computes fractional pixel coverage along polygon boundaries to eliminate "staircase" jagged edges.
-* **Alpha Blending:** Computes transparent overlays using the **Porter-Duff "Over" operator**:
-  $$C_{result} = C_{src} \cdot \alpha_{src} + C_{dst} \cdot (1 - \alpha_{src})$$
+- **2D Transformations:** Uses transformation matrices to move, resize, and rotate shapes.
+  - Supports `translate`, `scale`, `rotate`, and `matrix`.
+- **ViewBox Handling:** Adjusts the SVG drawing to fit the available display area while maintaining its proportions.
+
+### 3. Rendering and Curves
+
+- **Curve Handling:** Converts cubic and quadratic Bézier curves into smaller straight-line segments for drawing.
+- **Stroke Processing:** Converts shape outlines and lines into polygons that can be filled during rasterization.
+- **Shape Rendering:** Draws SVG elements in their original order, preserving their appearance and overlap.
+
+### 4. Rasterization and Image Quality
+
+- **Scanline Filling:** Fills shapes by checking where horizontal lines intersect their boundaries, using the Even-Odd rule.
+- **Antialiasing:** Uses partial pixel coverage to produce smoother edges and reduce jagged lines.
+- **Alpha Blending:** Combines transparent and solid colours to produce the final pixel colour.
 
 ---
 
 ## 🚀 Quick Start & How to Run
 
 ### System Requirements
-* **Java Development Kit (JDK):** Version 21 or higher.
-* **Maven:** Version 3.8+ (or use the Maven bundled in IntelliJ IDEA).
+
+- **Java Development Kit (JDK):** Version 21 or higher.
+- **Maven:** Version 3.8+ (or use the Maven bundled in IntelliJ IDEA).
 
 ---
 
@@ -113,6 +120,7 @@ mvn javafx:run
 ```
 
 **Using the Desktop Studio:**
+
 1. **Open SVG:** Click **Open SVG** to load any sample from the `samples/` directory (e.g. `house.svg`).
 2. **Interactive Code Editor:** Edit or write SVG XML markup in the left-hand text pane in real time.
 3. **Render:** Click **Render** to execute your custom 4-stage pipeline and display the rendered graphics on the canvas.
@@ -131,12 +139,13 @@ mvn test
 ```
 
 ### Test Suite Coverage
-* `testReaderParsesValidSvg`: Verifies DOM tag parsing and attribute extraction.
-* `testReaderRejectsMalformedXml`: Verifies line-numbered error throwing on broken XML.
-* `testReaderRejectsNonSvgRoot`: Verifies rejection of non-SVG documents.
-* `testInterpreterTransforms`: Validates scale, rotate, and translation matrix concatenation.
-* `testScanlineRasterizer`: Validates pixel fill correctness and color assignments.
-* `generateHousePreview`: Renders and asserts image dimension and color integrity.
+
+- `testReaderParsesValidSvg`: Verifies DOM tag parsing and attribute extraction.
+- `testReaderRejectsMalformedXml`: Verifies line-numbered error throwing on broken XML.
+- `testReaderRejectsNonSvgRoot`: Verifies rejection of non-SVG documents.
+- `testInterpreterTransforms`: Validates scale, rotate, and translation matrix concatenation.
+- `testScanlineRasterizer`: Validates pixel fill correctness and color assignments.
+- `generateHousePreview`: Renders and asserts image dimension and color integrity.
 
 ---
 
@@ -144,18 +153,18 @@ mvn test
 
 Test SVG files are located in [`rrr-svgs-app/samples/`](rrr-svgs-app/samples/):
 
-| Sample File | Key SVG Features Tested |
-| :--- | :--- |
-| [`house.svg`](rrr-svgs-app/samples/house.svg) | **Full scene:** Bézier rolling hills, `<polygon>` roof, grouped objects (`<g>`), translations, and opacity. |
-| [`shapes.svg`](rrr-svgs-app/samples/shapes.svg) | **Primitives checklist:** `<rect>`, `<circle>`, `<ellipse>`, `<line>`, `<polyline>`, and `<polygon>`. |
-| [`sample.svg`](rrr-svgs-app/samples/sample.svg) | **Coordinate test:** ViewBox scaling, strokes, and fills. |
-| [`invalid.svg`](rrr-svgs-app/samples/invalid.svg) | **Error handling benchmark:** Malformed unclosed tag to verify error catching. |
+| Sample File                                       | Key SVG Features Tested                                                                                     |
+| :------------------------------------------------ | :---------------------------------------------------------------------------------------------------------- |
+| [`house.svg`](rrr-svgs-app/samples/house.svg)     | **Full scene:** Bézier rolling hills, `<polygon>` roof, grouped objects (`<g>`), translations, and opacity. |
+| [`shapes.svg`](rrr-svgs-app/samples/shapes.svg)   | **Primitives checklist:** `<rect>`, `<circle>`, `<ellipse>`, `<line>`, `<polyline>`, and `<polygon>`.       |
+| [`sample.svg`](rrr-svgs-app/samples/sample.svg)   | **Coordinate test:** ViewBox scaling, strokes, and fills.                                                   |
+| [`invalid.svg`](rrr-svgs-app/samples/invalid.svg) | **Error handling benchmark:** Malformed unclosed tag to verify error catching.                              |
 
 ---
 
 ## 📜 Academic Integrity & Course Information
 
-* **Course:** CSC360 / Computer Graphics & Image Processing
-* **Project:** RRR-SVGs (Reading, Rendering, and Rasterization)
-* **Group:** Group 3
-* **Repository:** `CSC360-Group3`
+- **Course:** CSC360 / Computer Graphics & Image Processing
+- **Project:** RRR-SVGs (Reading, Rendering, and Rasterization)
+- **Group:** Group 3
+- **Repository:** `CSC360-Group3`
