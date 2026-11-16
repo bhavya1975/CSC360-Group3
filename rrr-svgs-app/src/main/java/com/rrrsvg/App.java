@@ -18,6 +18,7 @@ import java.util.List;
 import ij.ImagePlus;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -29,6 +30,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -69,7 +71,13 @@ public class App extends Application {
         imagej.setOnAction(e -> openImageJ());
 
         codeArea.setStyle("-fx-font-family: monospace;");
-        SplitPane split = new SplitPane(codeArea, new ScrollPane(imageView));
+        StackPane imageHolder = new StackPane(imageView);
+        imageHolder.setAlignment(Pos.CENTER);
+        ScrollPane scrollPane = new ScrollPane(imageHolder);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        SplitPane split = new SplitPane(codeArea, scrollPane);
         split.setDividerPositions(0.45);
 
         BorderPane root = new BorderPane();
