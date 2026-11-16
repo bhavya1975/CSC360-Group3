@@ -1,6 +1,6 @@
 # CSC360 Group 3 — RRR-SVGs: Reading, Rendering, and Rasterization
 
-> **An end-to-end 2D vector graphics engine built from scratch in Java, transforming SVG XML descriptions into discrete, antialiased pixels using custom geometric interpretation, Bézier curve flattening, and scanline rasterization.**
+> **Developed a Java-based application to read SVG files, interpret graphical elements, render shapes, and convert vector graphics into raster images.**
 
 <p align="center">
   <img src="docs/output_preview.png" alt="RRR-SVGs Rendered Output Preview" width="550" />
@@ -19,22 +19,22 @@ The pipeline transforms human-readable SVG text into discrete pixels through 4 d
         │
         ▼
 ┌─────────────────────────────────┐
-│ 1. SVG READER (Prasham)         │ ➔ W3C DOM Parsing, Syntax Validation & Tree Generation
+│ 1. SVG READER                   │ ➔ W3C DOM Parsing, Syntax Validation & Tree Generation
 └─────────────────────────────────┘
         │ SvgNode Tree
         ▼
 ┌─────────────────────────────────┐
-│ 2. SVG INTERPRETER (Bhavya)     │ ➔ viewBox Mapping, 2D Affine Transforms & Cascading Styles
+│ 2. SVG INTERPRETER              │ ➔ viewBox Mapping, 2D Affine Transforms & Cascading Styles
 └─────────────────────────────────┘
         │ Normalized Shapes
         ▼
 ┌─────────────────────────────────┐
-│ 3. RENDERING ENGINE (Pranel)    │ ➔ Bézier Curve Flattening, Fill/Stroke Separation, DrawOps
+│ 3. RENDERING ENGINE             │ ➔ Bézier Curve Flattening, Fill/Stroke Separation, DrawOps
 └─────────────────────────────────┘
         │ Polygons & Layer Order
         ▼
 ┌─────────────────────────────────┐
-│ 4. RASTERIZATION (Shubham)      │ ➔ Scanline Pixel Fill, Antialiasing, Blending & PNG Export
+│ 4. RASTERIZATION                │ ➔ Scanline Pixel Fill, Antialiasing, Blending & PNG Export
 └─────────────────────────────────┘
         │
         ▼
@@ -150,61 +150,6 @@ Test SVG files are located in [`rrr-svgs-app/samples/`](rrr-svgs-app/samples/):
 | [`shapes.svg`](rrr-svgs-app/samples/shapes.svg) | **Primitives checklist:** `<rect>`, `<circle>`, `<ellipse>`, `<line>`, `<polyline>`, and `<polygon>`. |
 | [`sample.svg`](rrr-svgs-app/samples/sample.svg) | **Coordinate test:** ViewBox scaling, strokes, and fills. |
 | [`invalid.svg`](rrr-svgs-app/samples/invalid.svg) | **Error handling benchmark:** Malformed unclosed tag to verify error catching. |
-
----
-
-## 👥 Team Members & Responsibilities
-
-The project is structured according to the course rubric across four dedicated modules, ensuring strict separation of concerns:
-
-| Member | Module / Role | Focus Area | Deliverable |
-| :--- | :--- | :--- | :--- |
-| **Prasham** | **Member 1 — SVG Reader** | *Reading & Validation* | Structured in-memory DOM representation (`SvgNode`) |
-| **Bhavya** | **Member 2 — SVG Interpreter** | *Rendering Preparation* | Normalized graphical objects ready to be drawn |
-| **Pranel** | **Member 3 — Rendering Engine** | *Geometry & Layering* | Drawable geometry with correct appearance & ordering |
-| **Shubham** | **Member 4 — Rasterization Engine** | *Pixel Generation & Export* | Final discrete raster image (PNG buffer) |
-
-### Detailed Member Responsibilities & Rubric Mapping
-
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1. Prasham (Member 1) — SVG Reader [Reading]                                           │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ • Read SVG files from disk, streams, or strings.                                       │
-│ • Parse XML using Java's built-in W3C DOM parser (DocumentBuilderFactory).             │
-│ • Understand SVG elements, nested tags, and XML attributes.                           │
-│ • Build a lightweight in-memory DOM/tree representation (SvgNode).                     │
-│ • Validate SVG structure: catch malformed XML line numbers & reject non-SVG roots.     │
-│ ➔ DELIVERABLE: Structured representation of the SVG that downstream modules consume.   │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 2. Bhavya (Member 2) — SVG Interpreter [Rendering Preparation]                         │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ • Interpret SVG primitives: circles, rectangles, lines, ellipses, polygons, paths.     │
-│ • Resolve coordinate systems, dimensions, and abstract viewBox-to-viewport mapping.    │
-│ • Handle styling: fill colors, border/stroke colors, stroke widths, and opacities.     │
-│ • Calculate 2D affine transformations (translate, scale, rotate, matrix) and inherit.  │
-│ • Convert parsed elements into drawable geometric objects.                             │
-│ ➔ DELIVERABLE: Collection of normalized graphical objects ready to be rendered.        │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 3. Pranel (Member 3) — Rendering Engine [Rendering]                                    │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ • Develop the logic to prepare and process graphical objects for drawing.              │
-│ • Handle shape boundaries, geometry tessellation, and Bézier curve flattening.         │
-│ • Separate and handle fill operations and stroke boundary operations.                  │
-│ • Manage overlapping objects and enforce SVG document drawing order (Painter's order). │
-│ • Generate an intermediate polygon representation (DrawOp) for rasterization.          │
-│ ➔ DELIVERABLE: Drawable geometry with correct visual appearance and layering.          │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 4. Shubham (Member 4) — Rasterization Engine [Rasterization]                           │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ • Convert continuous graphical geometry into discrete pixels on a 2D framebuffer.      │
-│ • Determine pixel coverage using high-speed Scanline Polygon Fill (Even-Odd parity).   │
-│ • Assign and blend colors to pixels using Porter-Duff Over alpha compositing.          │
-│ • Implement sub-pixel anti-aliasing for smooth, stair-free diagonal edges and curves.  │
-│ • Generate and encode the final raster image into standard PNG format.                 │
-│ ➔ DELIVERABLE: A crisp raster image generated directly from vector input.              │
-└────────────────────────────────────────────────────────────────────────────────────────┘
-```
 
 ---
 
