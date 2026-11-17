@@ -19,22 +19,22 @@ The pipeline transforms human-readable SVG text into discrete pixels through 4 d
         │
         ▼
 ┌─────────────────────────────────┐
-│ 1. SVG READER                   │ ➔ W3C DOM Parsing, Syntax Validation & Tree Generation
+│ 1. SVG READER (Prasham)                   │ ➔ W3C DOM Parsing, Syntax Validation & Tree Generation
 └─────────────────────────────────┘
         │ SvgNode Tree
         ▼
 ┌─────────────────────────────────┐
-│ 2. SVG INTERPRETER              │ ➔ viewBox Mapping, 2D Affine Transforms & Cascading Styles
+│ 2. SVG INTERPRETER (Bhavya)           │ ➔ viewBox Mapping, 2D Affine Transforms & Cascading Styles
 └─────────────────────────────────┘
         │ Normalized Shapes
         ▼
 ┌─────────────────────────────────┐
-│ 3. RENDERING ENGINE             │ ➔ Bézier Curve Flattening, Fill/Stroke Separation, DrawOps
+│ 3. RENDERING ENGINE (Pranel)           │ ➔ Bézier Curve Flattening, Fill/Stroke Separation, DrawOps
 └─────────────────────────────────┘
         │ Polygons & Layer Order
         ▼
 ┌─────────────────────────────────┐
-│ 4. RASTERIZATION                │ ➔ Scanline Pixel Fill, Antialiasing, Blending & PNG Export
+│ 4. RASTERIZATION (Shubham)               │ ➔ Scanline Pixel Fill, Antialiasing, Blending & PNG Export
 └─────────────────────────────────┘
         │
         ▼
